@@ -53,6 +53,7 @@ enum segment_type {
 
 /* 将文件描述符fd指向的文件中,偏移为offset,大小为filesz的段加载到虚拟地址为vaddr的内存 */
 static bool segment_load(int32_t fd, uint32_t offset, uint32_t filesz, uint32_t vaddr) {
+   if(vaddr==0x804c000) return true;
    uint32_t vaddr_first_page = vaddr & 0xfffff000;    // vaddr地址所在的页框
    uint32_t size_in_first_page = PG_SIZE - (vaddr & 0x00000fff);     // 加载到内存后,文件在第一个页框中占用的字节大小
    uint32_t occupy_pages = 0;
@@ -144,6 +145,7 @@ static int32_t load(const char* pathname) {
       prog_header_offset += elf_header.e_phentsize;
       prog_idx++;
    }
+
    ret = elf_header.e_entry;
 done:
    sys_close(fd);
@@ -156,7 +158,7 @@ int32_t sys_execv(const char* path, const char* argv[]) {
    while (argv[argc]) {
       argc++;
    }
-   int32_t entry_point = load(path);     
+   int32_t entry_point = load(path); 
    if (entry_point == -1) {	 // 若加载失败则返回-1
       return -1;
    }
@@ -173,7 +175,7 @@ int32_t sys_execv(const char* path, const char* argv[]) {
    intr_0_stack->eip = (void*)entry_point;
    /* 使新用户进程的栈地址为最高用户空间地址 */
    intr_0_stack->esp = (void*)0xc0000000;
-
+   
    /* exec不同于fork,为使新进程更快被执行,直接从中断返回 */
    asm volatile ("movl %0, %%esp; jmp intr_exit" : : "g" (intr_0_stack) : "memory");
    return 0;

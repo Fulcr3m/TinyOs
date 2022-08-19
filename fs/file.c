@@ -445,7 +445,6 @@ int32_t file_read(struct file* file, void* buf, uint32_t count) {
 
    int32_t indirect_block_table;       // 用来获取一级间接表地址
    uint32_t block_idx;		       // 获取待读的块地址 
-
 /* 以下开始构建all_blocks块地址数组,专门存储用到的块地址(本程序中块大小同扇区大小) */
    if (read_blocks == 0) {       // 在同一扇区内读数据,不涉及到跨扇区读取
       ASSERT(block_read_end_idx == block_read_start_idx);

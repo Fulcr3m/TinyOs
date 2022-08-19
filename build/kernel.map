@@ -464,7 +464,7 @@ LOAD build/pipe.o
 .plt.sec
  *(.plt.sec)
 
-.text           0x00000000c0001500     0xddd8
+.text           0x00000000c0001500     0xddeb
  *(.text.unlikely .text.*_unlikely .text.unlikely.*)
  *(.text.exit .text.exit.*)
  *(.text.startup .text.startup.*)
@@ -716,17 +716,17 @@ LOAD build/pipe.o
                 0x00000000c000e632                buildin_rmdir
                 0x00000000c000e6e3                buildin_rm
                 0x00000000c000e794                buildin_help
- .text          0x00000000c000e7b7      0x36a build/exec.o
-                0x00000000c000ea6a                sys_execv
- .text          0x00000000c000eb21      0x4c7 build/wait_exit.o
-                0x00000000c000ee46                sys_wait
-                0x00000000c000ef14                sys_exit
- .text          0x00000000c000efe8      0x2f0 build/pipe.o
-                0x00000000c000efe8                is_pipe
-                0x00000000c000f038                sys_pipe
-                0x00000000c000f134                pipe_read
-                0x00000000c000f1d0                pipe_write
-                0x00000000c000f27a                sys_fd_redirect
+ .text          0x00000000c000e7b7      0x37d build/exec.o
+                0x00000000c000ea7d                sys_execv
+ .text          0x00000000c000eb34      0x4c7 build/wait_exit.o
+                0x00000000c000ee59                sys_wait
+                0x00000000c000ef27                sys_exit
+ .text          0x00000000c000effb      0x2f0 build/pipe.o
+                0x00000000c000effb                is_pipe
+                0x00000000c000f04b                sys_pipe
+                0x00000000c000f147                pipe_read
+                0x00000000c000f1e3                pipe_write
+                0x00000000c000f28d                sys_fd_redirect
  *(.gnu.warning)
 
 .fini
